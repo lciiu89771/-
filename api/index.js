@@ -1,7 +1,6 @@
 // Vercel Serverless 适配器
-// 重要限制: sql.js（SQLite）在 Vercel 无服务器环境中文件系统是临时的，
-//           数据不会跨请求持久保存。每次冷启动都会重建数据库。
-// 建议: 如需数据持久化，改用 Railway / Render 等支持持久存储的平台。
+// 数据库路径设为 /tmp/data.db（Vercel 无服务器环境唯一可写目录）
+process.env.DB_PATH = "/tmp/data.db";
 
 const express = require("express");
 const cors = require("cors");
@@ -10,19 +9,16 @@ const db = require("../database");
 
 const app = express();
 
-// 全局初始化 Promise，确保只初始化一次
 const initPromise = db.initDB().catch(err => { console.error("DB init error:", err); });
 
 app.use(cors());
 app.use(express.json());
 
-// 确保数据库已初始化后再处理请求
 app.use(async (req, res, next) => {
   try { await initPromise; } catch(e) { res.status(500).json({error:"Database init failed"}); return; }
   next();
 });
 
-// API 路由（与 server.js 一致）
 app.get("/api/employees", (req, res) => { try { res.json(db.getAllEmployees()); } catch(e) { res.status(500).json({error:e.message}); } });
 app.post("/api/employees", (req, res) => { try { res.json(db.addEmployee(req.body)); } catch(e) { res.status(500).json({error:e.message}); } });
 app.put("/api/employees/:id", (req, res) => { try { db.updateEmployee(+req.params.id, req.body); res.json({ok:true}); } catch(e) { res.status(500).json({error:e.message}); } });
