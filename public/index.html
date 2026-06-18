@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>门店员工服务管理系统</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div id="app">
+  <aside class="sidebar">
+    <div class="logo">门店管理系统</div>
+    <nav class="nav" id="navTabs">
+      <a class="nav-item active" data-tab="dashboard" href="#dashboard">📊 门店看板</a>
+      <a class="nav-item" data-tab="employees" href="#employees">👥 员工管理</a>
+      <a class="nav-item" data-tab="services" href="#services">💇 服务项目</a>
+      <a class="nav-item" data-tab="registrations" href="#registrations">📝 顾客登记</a>
+      <a class="nav-item" data-tab="stats" href="#stats">📈 绩效统计</a>
+    </nav>
+  </aside>
+  <main class="main" id="mainContent">
+    <div id="page-dashboard" class="page active"></div>
+    <div id="page-employees" class="page"></div>
+    <div id="page-services" class="page"></div>
+    <div id="page-registrations" class="page"></div>
+    <div id="page-stats" class="page"></div>
+  </main>
+</div>
+<div id="modal-overlay" class="modal-overlay hidden">
+  <div class="modal" id="modal-content"></div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

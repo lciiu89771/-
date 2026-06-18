@@ -1,0 +1,14 @@
+﻿{
+  "name": "project01",
+  "version": "1.0.0",
+  "description": "门店员工服务管理系统",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "sql.js": "^1.10.0"
+  }
+}
